@@ -1,9 +1,10 @@
-# Nome do sistema
+# Gerenciador de Campeonato de Futebol
 
 Atividade da Unidade 2 de Linguagem de Programação I. Leia `ENUNCIADO.md`
 antes de começar.
 
-Uma frase dizendo o que o sistema faz. A descrição completa está em
+Sistema em C++ para cadastrar times de futebol, registrar partidas e acompanhar
+estatísticas e a classificação de um campeonato. A descrição completa está em
 `DESCRICAO.md`.
 
 ## Arquivos
@@ -13,7 +14,7 @@ Uma frase dizendo o que o sistema faz. A descrição completa está em
 ├── AGENTS.md       regras que a IA lê antes de cada pedido
 ├── DESCRICAO.md    a descrição do sistema, escrita por você
 ├── ENUNCIADO.md    a atividade
-├── PLANO.md        o plano feito com a IA (criado na etapa 3)
+├── PLANO.md        plano de implementação do sistema
 ├── README.md       este arquivo
 ├── exemplos/       arquivos de entrada para testar
 ├── include/        um .hpp por classe
