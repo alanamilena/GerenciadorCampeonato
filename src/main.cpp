@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Time.hpp"
+#include "Partida.hpp"
 
 int falhas = 0;
 
@@ -118,8 +119,35 @@ void testarGetters() {
     verificar("getter vermelhos", 1, t.vermelhos());
 }
 
+void testarPartida() {
+    std::cout << "Teste 6: construtor da Partida guarda os oito dados" << std::endl;
+
+    Partida p("Flamengo", "Vasco", 2, 1, 1, 0, 2, 1);
+    verificarTexto("getter casa", "Flamengo", p.casa());
+    verificarTexto("getter visitante", "Vasco", p.visitante());
+    verificar("getter gols da casa", 2, p.golsCasa());
+    verificar("getter gols do visitante", 1, p.golsVisitante());
+    verificar("getter amarelos da casa", 1, p.amarelosCasa());
+    verificar("getter vermelhos da casa", 0, p.vermelhosCasa());
+    verificar("getter amarelos do visitante", 2, p.amarelosVisitante());
+    verificar("getter vermelhos do visitante", 1, p.vermelhosVisitante());
+
+    std::cout << std::endl;
+    std::cout << "Teste 7: partida de outro tipo (empate, sem cartoes)" << std::endl;
+
+    Partida outra("Sao Paulo", "Santos", 1, 1, 0, 0, 0, 0);
+    verificarTexto("getter casa", "Sao Paulo", outra.casa());
+    verificarTexto("getter visitante", "Santos", outra.visitante());
+    verificar("getter gols da casa empatados", 1, outra.golsCasa());
+    verificar("getter gols do visitante empatados", 1, outra.golsVisitante());
+    verificar("getter amarelos da casa zerado", 0, outra.amarelosCasa());
+    verificar("getter vermelhos da casa zerado", 0, outra.vermelhosCasa());
+    verificar("getter amarelos do visitante zerado", 0, outra.amarelosVisitante());
+    verificar("getter vermelhos do visitante zerado", 0, outra.vermelhosVisitante());
+}
+
 int main() {
-    std::cout << "=== Testes da classe Time ===" << std::endl << std::endl;
+    std::cout << "=== Testes das classes Time e Partida ===" << std::endl << std::endl;
 
     testarEstadoInicial();
     std::cout << std::endl;
@@ -132,6 +160,8 @@ int main() {
     testarPontosAcumulados();
     std::cout << std::endl;
     testarGetters();
+    std::cout << std::endl;
+    testarPartida();
 
     std::cout << std::endl << "Falhas: " << falhas << std::endl;
     return falhas == 0 ? 0 : 1;
