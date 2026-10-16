@@ -22,6 +22,65 @@ static std::string trim_str(const std::string& s) {
 
 namespace interface {
 
+// Lê todos os dados de uma partida e tenta registrá-la no Campeonato.
+// A leitura sempre consome 8 linhas (2 nomes + 6 números), mesmo em caso de
+// erro, para que nenhuma entrada restante seja confundida com opção do menu.
+static void registrarPartidaMenu(Campeonato& camp) {
+    std::string casa;
+    std::string visitante;
+
+    std::cout << "Time da casa: ";
+    std::cout.flush();
+    std::getline(std::cin, casa);
+
+    std::cout << "Time visitante: ";
+    std::cout.flush();
+    std::getline(std::cin, visitante);
+
+    const char* rotulos[6] = {
+        "Gols do time da casa: ",
+        "Gols do time visitante: ",
+        "Cartoes amarelos do time da casa: ",
+        "Cartoes vermelhos do time da casa: ",
+        "Cartoes amarelos do time visitante: ",
+        "Cartoes vermelhos do time visitante: "
+    };
+    int valores[6] = {0, 0, 0, 0, 0, 0};
+    bool formatoOk = true;
+
+    for (int i = 0; i < 6; ++i) {
+        std::cout << rotulos[i];
+        std::cout.flush();
+        int valor = 0;
+        if (!lerInteiro(valor)) {
+            formatoOk = false; // texto no lugar de número: marca erro...
+        }
+        valores[i] = valor;    // ...mas segue lendo os 6 números até o fim.
+    }
+
+    if (!formatoOk) {
+        std::cout << "ERRO: Entrada invalida. A partida foi cancelada." << std::endl;
+        std::cout << std::endl;
+        return;
+    }
+
+    int resultado = camp.registrarPartida(casa, visitante,
+                                          valores[0], valores[1],
+                                          valores[2], valores[3],
+                                          valores[4], valores[5]);
+
+    if (resultado == Campeonato::PARTIDA_OK) {
+        std::cout << "OK: Partida registrada com sucesso!" << std::endl;
+    } else if (resultado == Campeonato::TIME_NAO_ENCONTRADO) {
+        std::cout << "AVISO: Time nao encontrado. A partida foi cancelada." << std::endl;
+    } else if (resultado == Campeonato::MESMO_TIME) {
+        std::cout << "AVISO: Uma partida nao pode ser entre o mesmo time." << std::endl;
+    } else {
+        std::cout << "ERRO: Gols e cartoes nao podem ser negativos. A partida foi cancelada." << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 bool lerInteiro(int& valor) {
     std::string linha;
     std::getline(std::cin, linha);
@@ -100,8 +159,7 @@ void executar(Campeonato& camp) {
             std::cout << std::endl;
             
         } else if (opcao == 3) {
-            std::cout << "Opcao ainda nao disponivel." << std::endl;
-            std::cout << std::endl;
+            registrarPartidaMenu(camp);
             
         } else if (opcao == 4) {
             std::cout << "Opcao ainda nao disponivel." << std::endl;

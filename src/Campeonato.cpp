@@ -43,6 +43,47 @@ std::vector<std::string> Campeonato::listarTimes() const {
     return lista;
 }
 
+int Campeonato::registrarPartida(const std::string& casa, const std::string& visitante,
+                                 int golsCasa, int golsVisitante,
+                                 int amarelosCasa, int vermelhosCasa,
+                                 int amarelosVisitante, int vermelhosVisitante) {
+    // 1) Valida os dados numéricos: nada de gols ou cartões negativos.
+    if (golsCasa < 0 || golsVisitante < 0 ||
+        amarelosCasa < 0 || vermelhosCasa < 0 ||
+        amarelosVisitante < 0 || vermelhosVisitante < 0) {
+        return DADOS_INVALIDOS;
+    }
+
+    // 2) Corta os espaços das pontas dos nomes, como no cadastro.
+    std::string casaCortada = trim(casa);
+    std::string visitanteCortado = trim(visitante);
+
+    // 3) Confere se os dois times estão cadastrados.
+    std::map<std::string, Time>::iterator itCasa = times.find(casaCortada);
+    std::map<std::string, Time>::iterator itVisitante = times.find(visitanteCortado);
+    if (itCasa == times.end() || itVisitante == times.end()) {
+        return TIME_NAO_ENCONTRADO;
+    }
+
+    // 4) Um time não pode jogar contra ele mesmo.
+    if (casaCortada == visitanteCortado) {
+        return MESMO_TIME;
+    }
+
+    // Só chega aqui se todas as validações passaram: agora sim altera as estatísticas.
+    // O time da casa marca golsCasa e sofre golsVisitante; o visitante é o inverso.
+    itCasa->second.atualizar(golsCasa, golsVisitante, amarelosCasa, vermelhosCasa);
+    itVisitante->second.atualizar(golsVisitante, golsCasa, amarelosVisitante, vermelhosVisitante);
+
+    // Guarda o confronto no histórico.
+    partidas.push_back(Partida(casaCortada, visitanteCortado,
+                               golsCasa, golsVisitante,
+                               amarelosCasa, vermelhosCasa,
+                               amarelosVisitante, vermelhosVisitante));
+
+    return PARTIDA_OK;
+}
+
 bool Campeonato::vazio() const {
     return times.empty();
 }
