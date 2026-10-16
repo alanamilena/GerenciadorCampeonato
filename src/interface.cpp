@@ -162,11 +162,44 @@ void executar(Campeonato& camp) {
             registrarPartidaMenu(camp);
             
         } else if (opcao == 4) {
-            std::cout << "Opcao ainda nao disponivel." << std::endl;
+            if (camp.vazio()) {
+                std::cout << "AVISO: Nao ha times cadastrados." << std::endl;
+            } else {
+                std::vector<Time> tabela = camp.classificacao();
+                std::cout << "Pos Nome | Pts | J | GM | GS | SG | CA | CV" << std::endl;
+                for (size_t i = 0; i < tabela.size(); ++i) {
+                    const Time& t = tabela[i];
+                    std::cout << (i + 1) << " " << t.nome()
+                              << " | " << t.pontos()
+                              << " | " << t.partidasJogadas()
+                              << " | " << t.golsMarcados()
+                              << " | " << t.golsSofridos()
+                              << " | " << t.saldo()
+                              << " | " << t.amarelos()
+                              << " | " << t.vermelhos()
+                              << std::endl;
+                }
+            }
             std::cout << std::endl;
             
         } else if (opcao == 5) {
-            std::cout << "Opcao ainda nao disponivel." << std::endl;
+            std::string nome;
+            std::cout << "Nome do time: ";
+            std::cout.flush();
+            std::getline(std::cin, nome);
+            Time time("");
+            if (camp.buscarTime(nome, time)) {
+                std::cout << "Time: " << time.nome() << std::endl;
+                std::cout << "Pontos: " << time.pontos() << std::endl;
+                std::cout << "Partidas jogadas: " << time.partidasJogadas() << std::endl;
+                std::cout << "Gols marcados: " << time.golsMarcados() << std::endl;
+                std::cout << "Gols sofridos: " << time.golsSofridos() << std::endl;
+                std::cout << "Saldo de gols: " << time.saldo() << std::endl;
+                std::cout << "Cartoes amarelos: " << time.amarelos() << std::endl;
+                std::cout << "Cartoes vermelhos: " << time.vermelhos() << std::endl;
+            } else {
+                std::cout << "AVISO: Time nao encontrado." << std::endl;
+            }
             std::cout << std::endl;
             
         } else if (opcao == 6) {

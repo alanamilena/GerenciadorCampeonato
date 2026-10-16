@@ -1,4 +1,5 @@
 #include "Campeonato.hpp"
+#include <algorithm>
 #include <cstddef>
 
 // Função auxiliar para cortar espaços das pontas
@@ -86,4 +87,25 @@ int Campeonato::registrarPartida(const std::string& casa, const std::string& vis
 
 bool Campeonato::vazio() const {
     return times.empty();
+}
+
+bool Campeonato::buscarTime(const std::string& nome, Time& saida) const {
+    std::string nomeCortado = trim(nome);
+    std::map<std::string, Time>::const_iterator it = times.find(nomeCortado);
+    if (it == times.end()) {
+        return false; // time não encontrado
+    }
+    saida = it->second; // copia o time para a saída
+    return true;
+}
+
+std::vector<Time> Campeonato::classificacao() const {
+    std::vector<Time> tabela;
+    for (std::map<std::string, Time>::const_iterator it = times.begin();
+         it != times.end(); ++it) {
+        tabela.push_back(it->second); // copia cada Time do map para o vector
+    }
+    // std::sort usa o operator< do Time, sem lambda.
+    std::sort(tabela.begin(), tabela.end());
+    return tabela;
 }

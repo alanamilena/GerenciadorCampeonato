@@ -27,6 +27,25 @@ void Time::atualizar(int golsMarcados, int golsSofridos, int amarelos, int verme
     }
 }
 
+bool Time::operator<(const Time& outro) const {
+    if (pontos_ != outro.pontos_) {
+        return pontos_ > outro.pontos_;
+    }
+    if (saldo_ != outro.saldo_) {
+        return saldo_ > outro.saldo_;
+    }
+    if (golsMarcados_ != outro.golsMarcados_) {
+        return golsMarcados_ > outro.golsMarcados_;
+    }
+    if (vermelhos_ != outro.vermelhos_) {
+        return vermelhos_ < outro.vermelhos_;
+    }
+    if (amarelos_ != outro.amarelos_) {
+        return amarelos_ < outro.amarelos_;
+    }
+    return nome_ < outro.nome_;
+}
+
 std::string Time::nome() const {
     return nome_;
 }

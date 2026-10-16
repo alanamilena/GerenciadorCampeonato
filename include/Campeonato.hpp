@@ -38,6 +38,12 @@ public:
                          int amarelosCasa, int vermelhosCasa,
                          int amarelosVisitante, int vermelhosVisitante);
     
+    // Busca um time pelo nome (corta espaços das pontas). Se existir, copia para saida e retorna true.
+    bool buscarTime(const std::string& nome, Time& saida) const;
+
+    // Retorna todos os times ordenados pela classificação (std::sort + Time::operator<)
+    std::vector<Time> classificacao() const;
+
     // Verifica se não há times cadastrados
     bool vazio() const;
 };

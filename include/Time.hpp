@@ -9,6 +9,8 @@ public:
 
     void atualizar(int golsMarcados, int golsSofridos, int amarelos, int vermelhos);
 
+    bool operator<(const Time& outro) const;
+
     std::string nome() const;
     int pontos() const;
     int golsMarcados() const;
