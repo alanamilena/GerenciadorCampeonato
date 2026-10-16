@@ -31,6 +31,19 @@ g++ -std=c++11 -Wall -Wextra src/*.cpp -Iinclude -o sistema
 Se o comando mudar, atualize esta seção. Na correção eu vou usar o que
 estiver escrito aqui.
 
+### Testes das classes Time e Partida
+
+Os testes ficam em `testes/`, fora de `src/`, para não conflitar com o
+`main.cpp` do sistema:
+
+```bash
+g++ -std=c++11 -Wall -Wextra testes/testes_time_partida.cpp src/Time.cpp src/Partida.cpp -Iinclude -o testes_time_partida
+./testes_time_partida
+```
+
+O programa imprime `[OK]` em cada teste que passa e encerra com código
+de saída 0 quando não há falhas (`Falhas: 0`).
+
 ## Onde uso a STL
 
 Escreva esta seção sem IA. Para cada container ou algoritmo da STL que o

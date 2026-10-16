@@ -1,5 +1,7 @@
 sistema
 sistema.exe
+testes_time_partida
+testes_time_partida.exe
 *.o
 *.db
 .DS_Store
