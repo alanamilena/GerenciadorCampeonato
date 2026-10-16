@@ -122,6 +122,12 @@ void executar(Campeonato& camp) {
         std::cout.flush();
         
         if (!lerInteiro(opcao)) {
+            // Se a leitura falhou porque a entrada acabou (EOF), não é erro
+            // do usuário: encerra o programa igual à opção 6.
+            if (!std::cin) {
+                std::cout << std::endl;
+                break;
+            }
             std::cout << "ERRO: Entrada invalida. Digite um numero entre 1 e 6." << std::endl;
             std::cout << std::endl;
             continue;
