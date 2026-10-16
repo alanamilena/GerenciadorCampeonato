@@ -46,10 +46,6 @@ de saída 0 quando não há falhas (`Falhas: 0`).
 
 ## Onde uso a STL
 
-Escreva esta seção sem IA. Para cada container ou algoritmo da STL que o
-sistema usa: em que classe ele está, o que guarda, e por que você escolheu
-ele e não outro.
-
 | Onde             | O quê               | Por quê |
 |---|---|---|
 | `Campeonato.hpp` | `std::map`          | Busca times pelo nome com `find()` e mantém as chaves ordenadas, ao contrário do `unordered_map`. |
@@ -60,8 +56,6 @@ ele e não outro.
 
 
 ## Como usei a IA
-
-Escreva com as suas palavras:
 
 - Modelo usado: OpenCode - Big Pickle
 - Um pedido que deu certo, e por que você acha que deu certo: Um pedido que deu certo foi solicitar à IA que analisasse o funcionamento do sistema e ajudasse a identificar problemas durante os testes. Com isso, consegui verificar o comportamento do programa em diferentes situações e confirmar que o cadastro de times, o registro de partidas e a classificação funcionavam como esperado. Acredito que o pedido deu certo porque utilizei testes concretos para verificar as sugestões e conferir os resultados.
